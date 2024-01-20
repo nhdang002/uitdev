@@ -13,12 +13,6 @@ pipeline {
             }
         }
 
-        stage ('Run Sonarqube Scan') {
-            steps {
-                sh 'mvn clean verify sonar:sonar -Dsonar.projectkey=uitdev -Dsonar.organization=uitdev -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=090f85bb1c1a79a42f175d1196ff32e7baa3b436'
-            }
-        }
-
         stage ('Run SCA Scan') {
             steps {
                 withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
