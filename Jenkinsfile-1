@@ -21,7 +21,8 @@ pipeline {
         stage ('Run SCA Scan') {
             steps {
                 withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
-                    sh 'mvn snyk:test -fn'
+                    sh 'npm install -g snyk'
+                    sh 'mvn snyk:test'
                 }
             }
         }
