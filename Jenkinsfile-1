@@ -5,7 +5,7 @@ pipeline {
     }
 
     stages {
-        stage ('Checkout Code') {
+        stage ('Clone repo') {
             steps {
                 // Sử dụng plugin git để clone mã nguồn về
                 git branch: 'main', url: 'https://github.com/nhdang002/uitdev.git'
