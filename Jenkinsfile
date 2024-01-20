@@ -6,8 +6,8 @@ pipeline {
    stages{
     stage('Run Sonar Analysis') {
             steps {	
-		sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=scan-sast -Dsonar.organization=uitdevsast -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=24ca391ee110d6ec5ef0ceaad86c2a87c5f9f78b'
-		sh 'mvn clean compile sonar:sonar -Dsonar.projectKey=scan-sast -Dsonar.organization=uitdevsast -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=24ca391ee110d6ec5ef0ceaad86c2a87c5f9f78b'
+		sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=uitdev -Dsonar.organization=uitdev -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=090f85bb1c1a79a42f175d1196ff32e7baa3b436'
+		sh 'mvn clean compile sonar:sonar -Dsonar.projectKey=uidev -Dsonar.organization=uitdev -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=090f85bb1c1a79a42f175d1196ff32e7baa3b436'
 			}
         }
     stage('Run SCA Analysis using Snyk') {
