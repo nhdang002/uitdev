@@ -1,21 +1,29 @@
 pipeline {
-  agent any
-  tools {
-    maven 'maven_3_5_2'
-  }
-
-  stages {
-    stage ('Run SAST Scan') {
-      steps {
-        sh 'mvn clean verify sonar:sonar -Dsonar.projectkey=uitdev -Dsonar.organization=uitdev -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=090f85bb1c1a79a42f175d1196ff32e7baa3b436'
-      }
+    agent any
+    tools {
+        maven 'maven_3_5_2'
     }
-   stage ('Run SCA Scan') {
-      steps {
-        withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
-           sh 'mvn snyk:test -fn'
- }
-}
-}
-  }
+
+    stages {
+        stage ('Checkout Code') {
+            steps {
+                // Sử dụng plugin git để clone mã nguồn về
+                git branch: 'main', url: 'https://github.com/nhdang002/uitdev.git'
+            }
+        }
+
+        stage ('Run SAST Scan') {
+            steps {
+                sh 'mvn clean verify sonar:sonar -Dsonar.projectkey=uitdev -Dsonar.organization=uitdev -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=090f85bb1c1a79a42f175d1196ff32e7baa3b436'
+            }
+        }
+
+        stage ('Run SCA Scan') {
+            steps {
+                withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
+                    sh 'mvn snyk:test -fn'
+                }
+            }
+        }
+    }
 }
